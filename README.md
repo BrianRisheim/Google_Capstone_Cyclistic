@@ -29,4 +29,4 @@ The director of marketing sets a goal to design marketing strategies aimed at co
 
 **Additional Information**
 
-The original files were stored on my local desktop. From there the file paths were associated so we could upload the data to RStudio. 
+The raw data files were housed on my personal computer. I set up the file pathways appropriately to facilitate importing the data into RStudio for examination
