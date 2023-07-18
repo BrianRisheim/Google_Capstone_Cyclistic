@@ -1,0 +1,674 @@
+---
+title: "Cyclistic Case Study"
+author: "Brian Risheim"
+date: "2023-07-07"
+output:
+  html_document: default
+editor_options:
+  chunk_output_type: inline
+
+---
+# Case Study: How Does A Bike-Share Navigate a Speedy Success?
+
+## Introduction:
+
+I formulated this case study to simulate the real-world tasks of a junior data analyst. This project will use the steps of data analysis process to answer key business questions.
+
+The steps of the data analysis process in order are:
+
+-   Ask
+-   Prepare
+-   Process
+-   Analyze
+-   Share
+-   Act
+
+Each step of the process will include:
+
+-   Guiding questions about each phase and their respective answer
+-   Key tasks about each phase
+-   Output from key tasks
+-   Code Snippets to display thought process (if applicable)
+
+**Scenario:**
+
+You are a junior data analyst working in the marketing analyst team at Cyclistic ,a bike-share company in Chicago. The director of marketing believes the company's future success depends on maximizing the number of annual memberships. Therefore, your team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, your team will design a new marketing strategy to convert casual riders into annual members. But first, Cyclistic executives must approve your recommendations, so they must be backed up with compelling data insights and professional data visualizations.
+
+Cyclistic's marketing strategy relied on building general awareness and appealing to broad consumer segments. One approach that helped make these things possible was the flexibility of its pricing plans: single-ride passes, full-day passes, and annual memberships. Customers who purchase single-ride or full-day passes are referred to as casual riders. Customers who purchase annual memberships are Cyclistic members.
+
+The director of marketing sets a goal to design marketing strategies aimed at converting causal riders into annual members. Management has tasked you to research findings based on how annual members and casual riders use Cyclistic bikes differently.
+
+**Character and Teams:**
+
+-   **Cyclistic**: A bike-share program that features more than 5,800 bicycles and 600 docking stations. Cyclistic sets itself apart by also offering reclining bikes, hand tricycles, and cargo bikes, making bike-share more inclusive to people with disabilities and riders who can't use a standard two-wheeled bike. The majority of riders opt for traditional bikes; about 8% of riders use the assistive options. Cyclistic users are more likely to ride for leisure, but about 30% use them to commute to work each day.
+
+-   **Lily Moreno:** The director of marketing and your manager. Moreno is responsible for the development of campaigns and initiatives to promote the bike-share program. These may include email, social media, and other channels.
+
+-   **Cyclistic marketing analytics team:** A team of data analysts who are responsible for collecting, analyzing, and reporting data that helps guide Cyclistic marketing strategy. You joined this team six months ago and have been busy learning about Cyclistic's mission and business goals --- as well as how you, as a junior data analyst, can help Cyclistic achieve them.
+
+-   **Cyclistic executive team:** The notoriously detail-oriented executive team will decide whether to approve the recommended marketing program.
+
+## Ask:
+
+**Guiding Questions:**
+
+-   **What is the problem you are trying to solve?**
+
+The primary objective we aim to address is gaining a comprehensive understanding of the differentiating factors between our annual members and casual riders. By doing so, our goal is to identify strategic approaches that will facilitate the conversion of casual riders into committed annual members.
+
+-   **How can your insights drive business decisions?**
+
+The insights derived from our comprehensive research will serve as the foundation for informed business decisions. By leveraging these insights, we will develop a targeted and data-driven marketing strategy specifically designed to optimize the conversion of casual riders into annual members.
+
+**Key Tasks**
+
+1.  Identify the business task
+2.  Consider key stakeholders
+
+**Deliverable**
+
+A clear statement of the business task:
+
+-   The objective is to analyze and identify the variations in bike usage patterns between casual riders and annual members. This analysis aims to provide recommendations on effective strategies to incentivize casual riders to transition into becoming annual members.
+
+## Prepare:
+
+The data-set used in this project can be located [here](https://divvy-tripdata.s3.amazonaws.com/index.html). The data has been made available by Motivate International Inc. under this [license](https://ride.divvybikes.com/data-license-agreement). This public data-set does not contain any personal data or information that would allow the tracking of individual riders and their frequency of bike usage.
+
+**Guiding Questions:**
+
+-   **Where is your data located?**
+
+The data is stored in multiple CSV files residing on a local computer. These files contain information extracted from Cyclist, and in addition, I have created a separate consolidated file that presents a comprehensive table for the entire year of 2022.
+
+-   **How is the data organized?**
+
+The data is organized into a collection of 12 CSV files, with each file representing a specific month throughout the year 2022.
+
+-   **Are there issue with bias or credibility in this data? Does your data ROCCC?**
+
+The data collected for this project is classified as first-party data, obtained directly from the company. This inherent quality of being a first-party source significantly reduces the potential for bias and enhances its credibility. Moreover, the data exhibits the ROCCC characteristics, as it is reliable, original, comprehensive, current, and properly cited.
+
+-   **How are you addressing licensing, privacy, security, and accessibility?**
+
+The data utilized for this study is sourced from an open-source provider directly associated with the company. The data is subject to specific licenses (detailed above) to ensure compliance and proper usage. In terms of privacy and security, rigorous measures have been implemented to safeguard user information. All personal data has been thoroughly anonymized and stripped from the data set, prioritizing the protection of user privacy.
+
+-   **How did you verify the data's integrity?**
+
+The data's integrity was verified through a examination of each file. This involved assessing the consistency of column names across all files, which was found to be maintained. While the data types within each file were generally consistent, some inconsistencies were identified that required appropriate manipulation to ensure accurate data representation. Additionally, during the verification process, instances of null and blank answers were identified within certain files, although not uniformly across all files. These findings were recorded and will be addressed to ensure data completeness and reliability.
+
+-   **How does it help you answer your question?**
+
+The data set provides an opportunity to conduct a comprehensive analysis of both annual members and casual riders, aiming to identify key characteristics related to the riders, bike usage patterns, and their specific needs.
+
+-   **Are there any problems with the data?**
+
+One limitation of the data is the absence of personal identifiable information, which prevents us from establishing connections between past purchases and credit card numbers. As a result, it becomes challenging to determine whether casual riders reside within the Cyclistic service area or if they have made multiple single pass purchases. This information gap restricts our ability to analyze specific geographic patterns and individual usage behaviors that could provide deeper insights into the customer base.
+
+**Key Tasks**
+
+1.Download data and store it appropriately
+
+2.Identity how it's organized
+
+3.Sort and filter the data
+
+4.  Determine the credibility of the data
+
+**Deliverable**
+
+A description of all data sources used:
+
+The primary data source used in this project comprises a collection of 12 CSV files, each corresponding to a specific month throughout the year 2022. These files have consistent column names, ensuring uniformity and ease of analysis across the data set. The data collection period spans from January to December, encompassing the entirety of the year.
+
+## Process
+
+During the process phase, I will use R to upload and merge the 12 CSV files into one consolidated file. This will simplify data manipulation, cleaning, and analysis tasks.
+
+**Guiding Questions**
+
+-   **What tools are you choosing and why?**
+
+R was chosen as the preferred tool for this phase due to its ability to handle large volumes of data efficiently. With millions of rows combined between the data sets, Excel was not suitable for processing. Additionally, there were compatibility issues with uploading the data into Google BigQuery. Therefore, R emerged as a reliable alternative, ensuring seamless data processing and analysis.
+
+-   **Have you ensured your data's integrity?**
+
+Data integrity was ensured by examining the data types of each table and its columns. After manipulating the data, it was confirmed that all columns now have consistent and appropriate data types. This guarantees the reliability and accuracy of the data used for analysis.
+
+-   **What steps have you taken to ensure that your data is clean?**
+
+To ensure data cleanliness, the following steps were taken:
+
+1.  Removal of duplicates and NA values.
+
+2.  Deletion of rows with inconsistent times leading to negative values.
+
+3.  Correct formatting of time and date columns.
+
+-   **How can you verify that your data is clean and ready to analyze?**
+
+To verify data cleanliness and analysis readiness:
+
+1.  Validate data accuracy, completeness, and consistency.
+
+2.  Ensure sufficient data quantity for research purposes.
+
+3.  Confirm uniform data formatting across tools.
+
+4.  Preprocess and clean data by removing duplicates, handling missing values, and addressing inconsistencies.
+
+-   **Have you documented your cleaning process so you can review and share those results?**
+
+Code chunks are provided demonstrating the documentation of the cleaning process.
+
+**Key Tasks**
+
+1.  Check the data for errors.
+2.  Choose your tools.
+3.  Transform the data so you can work with it effectively.
+4.  Document the cleaning process.
+
+**Deliverable**
+
+Documentation of any cleaning or manipulation of data (provided below)
+
+**Setting up the environment**
+
+```{r setup, include=FALSE}
+# Set the CRAN mirror
+options(repos = c(CRAN = "http://cran.rstudio.com/"))
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r}
+install.packages("tidyverse") #used to data manipulation and calculations 
+install.packages("janitor") # used to examine and cleaning dirty data
+install.packages("lubridate") #dates
+install.packages("skimr") #statistic measures
+install.packages("ggplot2") #data visualization
+install.packages("data.table") #exporting the data frame
+install.packages("tinytex")
+install.packages(c("Rcpp", "httpuv", "later", "promises", "shiny", "sourcetools", "xtable"))
+```
+
+**Loading Libraries**
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(skimr)
+library(ggplot2)
+library(data.table)
+
+```
+
+**Importing Data**
+
+```{r}
+# Using the read_csv function I will import all 12 months of trip data from the 2022 year.
+trips_01 <- read.csv("./data/202201-divvy-tripdata.csv")
+trips_02 <- read.csv("./data/202202-divvy-tripdata.csv") 
+trips_03 <- read.csv("./data/202203-divvy-tripdata.csv")
+trips_04 <- read.csv("./data/202204-divvy-tripdata.csv")
+trips_05 <- read.csv("./data/202205-divvy-tripdata.csv")
+trips_06 <- read.csv("./data/202206-divvy-tripdata.csv")
+trips_07 <- read.csv("./data/202207-divvy-tripdata.csv")
+trips_08 <- read.csv("./data/202208-divvy-tripdata.csv")
+trips_09 <- read.csv("./data/202209-divvy-publictripdata.csv")
+trips_10 <- read.csv("./data/202210-divvy-tripdata.csv")
+trips_11 <- read.csv("./data/202211-divvy-tripdata.csv")
+trips_12 <- read.csv("./data/202212-divvy-tripdata.csv")
+```
+
+**Comparing column names**
+
+```{r}
+#Assessing that column names are consistent across all data frames.
+colnames(trips_01)
+colnames(trips_02)
+colnames(trips_03)
+colnames(trips_04)
+colnames(trips_05)
+colnames(trips_06)
+colnames(trips_07)
+colnames(trips_08)
+colnames(trips_09)
+colnames(trips_10)
+colnames(trips_11)
+colnames(trips_12)
+```
+
+**Checking consistency of each dataset**
+
+```{r}
+#using the str() function we are able to look at the structure of each data frame. Allowing us to reassure that all columns and correct data types match.
+str(trips_01)
+str(trips_02)
+str(trips_03)
+str(trips_04)
+str(trips_05)
+str(trips_06)
+str(trips_07)
+str(trips_08)
+str(trips_09)
+str(trips_10)
+str(trips_11)
+str(trips_12)
+```
+
+**Merging data.**
+
+```{r}
+#After checking that all data types and data frames are consistent with each other, we will combine all 12 data sets so that we are able to clean and manipulate the data more efficiently.
+trips_2022 <- bind_rows(trips_01, trips_02, trips_03, trips_04, trips_05, 
+                        trips_06, trips_07, trips_08, trips_09, trips_10, trips_11, trips_12)
+```
+
+After merging all the data into a single data frame representing the year of 2022, we can confirm the accuracy of the process by adding up the total number of rows from all 12 months and comparing it with the total rows from our combined data set.
+
+```{r}
+# Using the sum function and nrow() function to calculate the total number of rows for the data frames representing individual months.
+totalrow <- sum(nrow(trips_01), nrow(trips_02), nrow(trips_03), nrow(trips_04),
+                nrow(trips_05),nrow(trips_06),nrow(trips_07),nrow(trips_08),nrow(trips_09),nrow(trips_10), nrow(trips_11), nrow(trips_12))
+print(totalrow)
+```
+
+```{r}
+#using nrow() function to find the total number of rows in our combined data frame.
+
+print(nrow(trips_2022))
+```
+
+**Data cleaning and manipulation**
+
+We will inspect the new data frame created.
+
+```{r}
+str(trips_2022)
+colnames(trips_2022)
+dim(trips_2022)
+head(trips_2022)
+```
+
+The current date format is yyy-mm-dd hh:mm:ss. New columns for date, month, day_of_week, and year are created to separate the time format individually and help provide deeper analysis. We also create a day of the week column showing the exact day of the week the bike was rented.
+
+```{r}
+trips_2022$date <- as.Date(trips_2022$started_at) #This provides the default format of yyyy-mm-dd
+trips_2022$month <- format(as.Date(trips_2022$date), "%m") #creates column for month
+trips_2022$day <- format(as.Date(trips_2022$date), "%d") #creates a column for day
+trips_2022$year <- format(as.Date(trips_2022$date), "%y") #creates a column for year
+trips_2022$day_of_week <- format(as.Date(trips_2022$date), "%A") #creates a column for day of the week.
+```
+
+We create a ride_length column to calculate ride length in minutes.
+
+```{r}
+trips_2022$ride_length <- difftime(trips_2022$ended_at, trips_2022$started_at, units= "mins") #creates columns for length of rides
+```
+
+Checking newly created columns and their structure.
+
+```{r}
+head(trips_2022)#checking that new columns were added.
+str(trips_2022)# checking structure of newly added columns. 
+```
+
+We convert ride_length column's data types to numeric for calculations in the analysis phase.
+
+```{r}
+trips_2022$ride_length <- as.numeric(as.character(trips_2022$ride_length)) #using as.numeric() to change data type to numeric. 
+is.numeric(trips_2022$ride_length) # is.numeric function checks if data type converted to numeric. If so it should output TRUE.
+
+```
+
+We find the minimum value in the ride_length column to look for negative values that can cause our findings to skew.
+
+```{r}
+print(min(trips_2022$ride_length))
+```
+
+After verifying our new column we come to a realization that some entries from the ride_length column are negative. This could be due to start and end times being swapped or recorded incorrectly.These negative values must be excluded.
+
+```{r}
+trips_2022_v2 <- trips_2022[!(trips_2022$start_station_name == "HQ QR" |trips_2022$ride_length<0),] ##filters the ride_length values in the data frame under the condition that length of ride is greater than 0
+
+
+print(min(trips_2022_v2$ride_length)) #printing the minimum value of the newly filtered data frame to ensure the minimum value is equal to 0
+```
+
+We then take the last steps of this phase to remove any NA values & duplicate rows
+
+```{r}
+#using the drop_na function to remove NA values
+trips_2022_v2 <- drop_na(trips_2022_v2)
+
+
+## removing duplicate values 
+trips_2022_v2 <- distinct(trips_2022_v2)
+print(paste(nrow(trips_2022)-nrow(trips_2022_v2), "Duplicate rows were removed"))
+
+```
+
+## Analyze
+
+In this phase of the data analysis process, we will preform:
+
+-   Descriptive analysis on ride length
+
+-   Comparing members and casual users.
+
+**Guiding Questions**
+
+-   **How should you organize your data to perform analysis on it?**
+
+To facilitate analysis, data should be cleaned, formatted, and enriched with variable and value labels for improved readability.
+
+-   **Has your data been properly formatted?**
+
+All data types are consistent ensuring that data has been properly formatted.
+
+-   **What surprise did you discover in the data?**
+
+Our analysis unveiled a compelling pattern demonstrating that casual riders consistently demonstrate extended usage duration in comparison to annual members. However, it is worth noting that annual members engage in a higher frequency of rides throughout the year.
+
+-   **What trends or relationships did you find in the data?**
+
+Our analysis revealed that weekends consistently stood out as the busiest days for both casual riders and annual members. Moreover, we observed a notable trend where the summer months, specifically June to August, exhibited heightened activity levels, representing the peak period of usage.
+
+-   **How will these insights help answer your business questions?**
+
+By gaining insights into the contrasting behaviors of casual riders and annual members, we can better address our business question. These findings will enable us to develop targeted strategies and optimize our offerings for both rider segments.
+
+**Key Tasks**
+
+1.  Aggregate your data so it's useful and accessible.
+
+2.  Organize and format your data.
+
+3.  Perform calculations.
+
+4.  Identify trends and relationships
+
+**Deliverable**
+
+-   A summary of your analysis
+
+We begin the analyze phase with a descriptive analysis focusing on the ride length of bike trips.
+
+```{r}
+# Descriptive analysis on ride_length ( all figures in minutes) 
+mean(trips_2022_v2$ride_length) #(total ride length/ rides)
+median(trips_2022_v2$ride_length) #midpoint number of ride length in ascending array
+max(trips_2022_v2$ride_length) #longest ride
+min(trips_2022_v2$ride_length) #shortest ride
+```
+
+The summary function can also be utilize to retrieve the information above
+
+```{r}
+summary(trips_2022_v2$ride_length) #  the $ sign is used to specify the ride length column
+                                  # running the function supplies us with min, median, mean, max, 1st quartile, and 3rd quartile
+```
+
+Determine the number of annual members in comparison to casual riders.
+
+```{r}
+trips_rider_type <- table(trips_2022_v2$member_casual)
+print(trips_rider_type)
+```
+
+We dive deeper into our comparison of members and causal riders . The average daily ride time for members and casual riders are calculated. We also analyze ridership data through the ride type and week day.
+
+```{r}
+#comparing members vs casual riders 
+aggregate(trips_2022_v2$ride_length ~ trips_2022_v2$member_casual, FUN = mean) #aggregate function is used to get the summary statistics of the data by group
+aggregate(trips_2022_v2$ride_length ~ trips_2022_v2$member_casual, FUN = median)
+aggregate(trips_2022_v2$ride_length ~ trips_2022_v2$member_casual, FUN = max)
+aggregate(trips_2022_v2$ride_length ~ trips_2022_v2$member_casual, FUN = min)
+```
+
+```{r}
+# Average ride time by each day for members vs casual riders 
+aggregate(trips_2022_v2$ride_length ~ trips_2022_v2$member_casual + trips_2022_v2$ day_of_week, FUN= mean)
+```
+
+When we run the code above we realize that days of the week are not in order. We will organize it before moving forward.
+
+```{r}
+trips_2022_v2$day_of_week <- ordered(trips_2022_v2$day_of_week, levels=c("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")) ##ordered function organizes days of the week according to the level set.
+
+aggregate(trips_2022_v2$ride_length ~ trips_2022_v2$member_casual + trips_2022_v2$ day_of_week, FUN= mean)##rerun previous function to see newly organized results
+
+```
+
+```{r}
+#analyzing ride data by type and weekday sorted and organized
+trips_2022_v2 %>% 
+  group_by(member_casual, day_of_week) %>%  #groups by usertype and weekday
+  summarise(number_of_rides = n()							#calculates the number of rides and average duration 
+  ,average_duration = mean(ride_length)) %>% 		# calculates the average duration
+  arrange(member_casual, day_of_week)								# sorts
+```
+
+Determining the most popular months during the 2022 year
+
+```{r}
+trips_popular_months <- trips_2022_v2 %>% 
+  group_by(month) %>% 
+  summarise(number_of_rides = n(), average_duration = mean(ride_length)) %>% 
+  arrange(-number_of_rides) # the minus sign arranges data from greatest to least 
+
+print(trips_popular_months)
+```
+
+It is also useful to find out what are the most popular start stations for both members and casual riders.
+
+```{r}
+#Determining the most popular stations used by casual riders
+casual_start_station <- trips_2022_v2 %>% 
+  filter(member_casual=='casual') %>% 
+  group_by(start_station_name) %>% 
+  summarise(number_of_starts = n()) %>% 
+  filter(start_station_name != "") %>% 
+  arrange(- number_of_starts)
+
+head(casual_start_station)
+```
+
+```{r}
+#Determining the most popular station used by annual members 
+members_start_station <- trips_2022_v2 %>% 
+  filter(member_casual=='member') %>% 
+  group_by(start_station_name) %>% 
+  summarise(number_of_starts=n()) %>% 
+  filter(start_station_name != "") %>% 
+  arrange(- number_of_starts)
+
+head(members_start_station)
+```
+
+Before we carry on with our visualizations, we will clean the environment and remove unnecessary data frames.
+
+```{r}
+#the rm() function is used to remove old data frames that are not being used
+rm(trips_01,trips_02,trips_03,trips_04,trips_05,trips_06,trips_07,trips_08,trips_09,trips_10,trips_11,trips_12)
+```
+
+## Share
+
+**Guiding Questions**
+
+-   **Were you able to answer the question of how annual members and casual riders use Cyclistic bike differently?**
+
+    We were able to answer how casual riders and annual members differ with their bike usage
+
+-   **What story does your data tell?**
+
+The analysis underscores distinct patterns observed between casual riders and annual members in the bike-sharing system. Casual riders consistently exhibit longer average ride duration, indicating a preference for extended trips. Conversely, annual members display shorter average ride duration but engage in a higher number of total trips over the course of the year. This disparity in usage behavior between the two rider types highlights the importance of considering their unique preferences and needs when developing targeted strategies and optimizing services within the bike-sharing system.
+
+-   **How do your findings relate to your original question?**
+
+The findings obtained from our analysis directly relate to the original question and provide supporting evidence for our hypothesis. Our research has confirmed the presence of a higher number of casual riders compared to annual members within the bike-sharing system. However, it is important to note that the usage patterns of these two groups significantly differ. The observed variations in ride duration and frequency between casual riders and annual members substantiate our initial assumption that there would be contrasting behaviors among these two membership types. Therefore, our findings not only validate the existence of a larger casual rider base but also emphasize the importance of understanding and addressing the distinct preferences and usage patterns of both casual riders and annual members.
+
+-   **Can data visualizations help you share your findings?**
+
+Data visualizations play a crucial role in effectively sharing our findings. By presenting the data in graphical formats, we can provide a visual illustration of the patterns and insights derived from the analysis. These visual representations serve as compelling evidence that supports our hypothesis and enables stakeholders to grasp the information more easily.
+
+-   **Is your presentation accessible to your audience?**
+
+    Yes the presentation is available upon request, attached with the R-markdown file that shows the whole process that was taken.
+
+**Key Tasks**
+
+1.  Determine the best way to share your findings.
+
+2.  Create effective data visualizations.
+
+3.  Present your findings.
+
+4.  Ensure your work is accessible
+
+**Deliverable**
+
+-   Supporting visualizations and key findings.
+
+**Visualizations**
+
+The first visualization supplied will portray the number of riders by rider type
+
+```{r}
+trips_2022_v2 %>% 
+  group_by(member_casual, day_of_week) %>% 
+  summarise(number_of_rides=n(), avergae_duration= mean(ride_length)) %>% 
+  arrange(member_casual, day_of_week) %>% 
+  ggplot(aes(x=day_of_week, y= number_of_rides, fill= member_casual))+ geom_col(position="dodge")+ labs(title= "Rider Type vs. Number of Rides", caption = "Data Collected by Cyclistic")  
+```
+
+We then visualize average duration of rides.
+
+```{r}
+ trips_2022_v2 %>%
+  group_by(member_casual,day_of_week) %>% 
+  summarise(number_of_rides=n(), average_duration = mean(ride_length)) %>% 
+  arrange(member_casual, day_of_week) %>% 
+  ggplot(aes(x=day_of_week, y= average_duration, fill= member_casual))+ 
+  geom_col(position = "dodge")+
+  labs(title = "Daily Average Duration of Rides by Rider Type", subtitle = "Takes average for each day", caption = "Data Collected by Cylistic")
+
+```
+
+We also plot the average ride duration by the rider type.
+
+```{r}
+trips_2022_v2 %>% 
+  group_by(member_casual) %>% 
+  summarise(ride_length, avg_ride_length= mean(ride_length)) %>% 
+  ggplot(aes(x=member_casual, y= avg_ride_length, fill= member_casual)) +
+  geom_col(position = "dodge")+
+  scale_y_continuous(breaks = seq(0,40,by=5))+
+  labs(title="Average Ride Duration by Rider Type",caption = "Data Collected by Cylistic")
+```
+
+We develop graphical representations that illustrate the monthly ride duration and the monthly number of trips by rider type.
+
+```{r}
+trips_2022_v2 %>% 
+  group_by(member_casual, month) %>% 
+  summarise(number_of_rides=n(), average_duration= mean(ride_length)) %>% 
+  arrange(member_casual, month) %>% 
+  ggplot(aes(x=month, y= average_duration, fill= member_casual))+
+  ylim(0,30)+ 
+  geom_col(position="dodge")+
+  geom_text(aes(label= number_of_rides, angle = 90))+
+  facet_wrap(~member_casual)+
+  labs(title="Monthly Ride Duration by Rider Type", subtitle= "Takes monthly average trip length for each rider type" , caption = "Data Collected by Cylistic")
+```
+
+```{r}
+trips_2022_v2 %>% 
+  group_by(member_casual, month) %>% 
+  summarise(number_of_rides=n()) %>% 
+  arrange(member_casual, month) %>% 
+  ggplot(aes(x= month, y= number_of_rides, fill= member_casual))+
+  geom_col(position = "dodge")+
+  geom_text(aes(label= number_of_rides, angle = 90)) +
+  facet_wrap(~member_casual)+
+  labs(title="Monthly Trips by Rider Type",caption = "Data Collected by Cylistic")+
+  theme(aspect.ratio = 1.0)+
+  ylim(0,500000)
+```
+
+For further analysis, we can export the newly cleaned file to a csv file. This gives us the opportunity to take the newly cleaned data to tableau for more visualizations. But first we need to remove columns (start station name, end station name, and time) due to the large amount of data residing in a single data frame. A new data frame will be created for tableau.
+
+```{r}
+trips_2022_tableau <- trips_2022_v2 %>% 
+  select(-c(start_station_name,end_station_name, started_at, ended_at))
+
+fwrite(trips_2022_tableau, "trips_2022_tableau.csv")
+```
+
+### Key Findings
+
+The key findings sections will present the discoveries derived from the calculations and visuals generated during both the analyze and share phases:
+
+-   In the year 2022, the data indicates a total of 3,334,951 members and 2,316,808 casual riders. This finding highlights that members account for the majority of bike usage throughout the year, suggesting a higher level of engagement and commitment to the bike-sharing service.
+-   The analysis revealed that casual riders had a notably higher average ride length of 21.98 minutes, in comparison to members who had an average ride length of 12.41 minutes.
+-   Casual riders recorded their longest ride duration at 34,294 minutes, equivalent to approximately 571 hours or 23 days.
+-   Saturdays emerged as the most active day for bike sharing.
+-   Sunday stood out as the most popular day for casual riders, with an average ride length of 25.09 minutes. On the other hand, Saturday was identified as the most popular day for annual members, with an average ride length of 13.79 minutes. These findings emphasize the distinct preferences and usage patterns exhibited by casual riders and annual members on specific days of the week.
+-   July emerged as the most popular month, witnessing a total of 822,525 rides, with an average ride duration of 18.29 minutes. In contrast, December marked the least popular month, recording 181,678 rides, with an average ride duration of 11.10 minutes. These findings highlight the seasonal variations in bike usage, with July experiencing higher demand and longer rides, while December witnessing lower overall usage and shorter ride duration.
+-   The analysis revealed that the most popular start station for casual riders was Streeter Dr & Grand Ave, with a total of 57,855 rides commencing from this location. Conversely, for annual members, the most popular start station was Kingsbury St & Kinzie St, which saw 24,933 rides originating from this specific station. These findings underscore the distinct preferences and choices of start stations for casual riders and annual members, reflecting varying patterns of usage within the bike-sharing system.
+-   In summary, the analysis highlights the contrasting patterns between casual riders and annual members within the bike-sharing system. Casual riders tend to have longer average ride durations, indicating a preference for extended trips. On the other hand, while annual members have shorter average ride duration, they demonstrate a higher number of total trips taken throughout the year. This suggests that annual members engage in more frequent and shorter rides, reflecting a different usage behavior compared to casual riders.
+
+## Act
+
+**Guiding Questions**
+
+-   **What is your final conclusion based on your analysis?**
+
+The final conclusion based on the analysis shows us that casual riders tend to have longer average rides, indicating a preference for extended trip. While annual members tend to have shorter averages, they also demonstrate a higher number of total trips throughout the year.There is a significant potential to convert casual riders into members.
+
+-   **How could your team and business apply your insights?**
+
+The team and business can create a focused marketing campaign and tailor incentives and rewards to attracted casual riders and convert them in annual members.
+
+-   **What next steps would you or your stakeholders take based on your findings?**
+
+Creating a marketing campaign that targets the seasonal and weekend usage surges and framing messages to showcase the benefits for frequent longer-distance riders. This could help shift casual riders into more frequent usage patterns.
+
+-   **Is there additional data you could use to expand your findings?**
+
+Some additional data that can be used to expand our finding could be weather data to identify conditions and potential barriers, if we had access to demographic data we could also reveal age, gender to reveal differences in usage patterns among customer segments. Lastly, looking at multiple year trends to identify new opportunities like growth in ridership and adapting promotions could also beneficial.
+
+**Key Tasks**
+
+1.  Create your portfolio.
+
+2.  Add your case study.
+
+3.  Practice presenting your case study to a friend or family member.
+
+**Deliverable**
+
+-   Your top three recommendations based on your analysis
+
+### Recommendations:
+
+Cyclistic must start providing discounts based on longer ride times for annual members. This could be brought in a type of rewards programs that is only accessible with membership. Here are a few recommendations that I believe would assist Cyclistic in converting more casual riders into annual members:
+
+-   A digital marketing campaign can be launched year round but heavily focused on during the summer months of the year. (June, July, August) These are the most popular month in which we see more usage of bikes across both casual and annual.
+
+-   The marketing campaign can include weekend specials at sensible pricing. As casual riders usage reaches its highest points on the weekend this can incentive them to switch over to a membership status.
+
+-   The campaign can also offer a tariff plan based on ride length, specifically aiming this promotion to be a weekend special. The more a member bikes the less of a tariff they will pay for the total trip.
+
+## Conclusion
+
+After a thorough analysis of Cyclistic's bike ridership data, our team has identified significant opportunities to convert casual riders into annual members.
+
+The data clearly shows users take longer, more frequent rides, especially in the summer months when overall ridership peaks. By targeting promotional efforts around these usage surges, we can incentivize casual riders to increase their frequency and commit to annual memberships.
+
+Specifically, we recommend launching targeted digital marketing campaigns focused on weekends and summer months highlighting seasonal passes, weekend specials, and rewards programs for longer rides. The messaging should showcase the benefits of membership for frequent riders through discounts and ride length-based incentives.
+
+If executed successfully, these data-driven promotions and messaging strategies can shift casual riders into more committed annual members, increasing customer lifetime value. We are confident this analysis provides actionable recommendations for maximizing conversions while optimizing marketing spend.
